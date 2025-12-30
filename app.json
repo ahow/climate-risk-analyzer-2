@@ -1,0 +1,59 @@
+{
+  "name": "Climate Risk Analyzer",
+  "description": "AI-powered climate risk analysis platform using a 44-measure assessment framework",
+  "repository": "https://github.com/your-repo/climate-risk-analyzer",
+  "keywords": ["climate", "risk", "analysis", "ai", "sustainability"],
+  "env": {
+    "DATABASE_URL": {
+      "description": "PostgreSQL connection URL",
+      "required": true
+    },
+    "ANTHROPIC_API_KEY": {
+      "description": "Anthropic Claude API key for AI analysis",
+      "required": true
+    },
+    "GOOGLE_SEARCH_API_KEY": {
+      "description": "Google Custom Search API key for document discovery",
+      "required": true
+    },
+    "GOOGLE_SEARCH_ENGINE_ID": {
+      "description": "Google Custom Search Engine ID",
+      "required": true
+    },
+    "SESSION_SECRET": {
+      "description": "Secret for session encryption",
+      "generator": "secret"
+    },
+    "PARALLEL_JOBS": {
+      "description": "Number of companies to process in parallel per worker",
+      "value": "3"
+    },
+    "NODE_ENV": {
+      "description": "Environment mode",
+      "value": "production"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    },
+    "worker": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql:essential-0"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "scripts": {
+    "postdeploy": "npm run db:push"
+  }
+}
